@@ -1,0 +1,286 @@
+body {
+    background-image: url("imagens/fundo.jpg");
+    background-size: 100vw 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+/* ---------- MENU ---------- */
+
+.header {
+
+    width: 100vw;
+    height: 10vh;
+    background-color: white;
+
+}
+
+.container {
+
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    
+
+}
+
+.navbar {
+    width:50vw;
+    list-style: none;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.userIcon {
+
+    align-self: center;
+    margin-left: 36.5vw;
+
+}
+
+.infinity {
+
+    margin: 2.5%;
+
+}
+
+/* ---------- ---------- */
+
+#card {
+
+    background-color: white;
+    border-radius: 5px;
+    height: 60vh;
+    width: 60vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#formulario_mensagem {
+
+    /* background-color: bisque; */
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 100%;
+
+}
+
+
+/* ---------- HISTÓRICO + LEGENDA ---------- */
+
+.historicoLegenda {
+
+    margin-top: 20px;
+    height: 99%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#historico {
+
+    /* background-color: rgb(154, 154, 255); */
+
+    width: 100%;
+    height: 30vh;
+
+    font-size: x-small;
+
+    padding: 10px;
+    border-left: 2px solid #ADADAD;
+
+}
+
+#legenda {
+
+    color: #3d3d3d;
+    height: 20vh;
+    font-size: x-small;
+    line-height: 2vh;
+    border-left: 2px solid #ADADAD;
+    padding-left: 10px;
+
+}
+
+#legenda span {
+
+    text-decoration: underline;
+    font-weight: 600;
+
+}
+
+
+/* ---------- FORMULÁRIO ---------- */
+
+#formulario {
+
+    height: 100%;
+    width: 70%;
+
+    padding-left: 10px;
+
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#formulario div {
+
+    /* background-color: rgb(255, 99, 99); */
+
+    font-size: large;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-items: space-between;
+
+    padding: 10px;
+
+}
+
+#formulario input {
+
+    background-color: #F0F0F0;
+
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+
+    width: 20vw;
+    
+    padding: 10px;
+    margin-top: 5px;
+
+    font-size: medium;
+
+}
+
+#valorObra .dinheiro {
+
+    flex-direction: row;
+    align-items: center;
+
+}
+
+#valorObra input {
+
+    margin-left: 5px;
+
+}
+
+#formulario button {
+
+    margin-top: 5px;
+
+    color: white;
+    font-size: large;
+
+    background-color: black;
+
+    border-radius: 5px;
+    border: none;
+
+    width: 80px;
+    height: 45px;
+
+    align-self: center;
+
+}
+
+#formulario button:hover {
+
+    background-color: rgb(24, 24, 24);
+
+}
+
+#formulario .botoes {
+    align-self: center;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+#formulario .botoes button {
+
+    margin: 2px;
+
+}
+
+/* ---------- RESULTADOS ---------- */
+
+#mensagemFinal {
+
+    /* background-color: aquamarine; */
+    height: 100%;
+    width: 90%;
+
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    
+}
+
+#mensagemFinal div{
+
+    font-size:large;
+
+}
+
+#condicoesQueEstaoBoas {
+
+    margin-bottom: 50px;
+    align-self: flex-start;
+
+}
+
+#resultadoPrejuizo {
+
+
+
+}
+
+#valorPrejuizo {
+
+    
+
+}
+
+#consequencias {
+
+
+
+}
+
+#propaganda {
+
+
+
+}

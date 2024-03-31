@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeir - Infinity Art</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class='header'>
+        <div class='container'>
+            <img src="imagens/logoInfinityPretov2.png" width="80vw" height="60vh">
+
+            <ul class="navbar">
+                <li>Página Inicial</li>
+                <li>Sobre Nós</li>
+                <li><u>Simulador Financeiro</u></li>
+                <li>Fale Conosco</li>
+            </ul>
+
+            <img class="userIcon" src="imagens/userIcon 1.png" width="40vw" height="40vh">
+
+        </div>
+    </div>
+
+    <div class="infinity">
+        <img src="imagens/INFINITY ART.png">
+    </div>
+
+    <div id="card">
+
+        <div id="formulario_mensagem">
+
+            <div id="formulario">
+                <div id="tipoTinta">
+                    <!--Perguntando o tipo de tinta-->
+                    Qual o tipo de tinta da sua obra?<br>
+                    <input id="input_tinta" placeholder="Acrílica, Óleo, Guache">
+                    <br>
+                    <button onclick="mostrarTamanhoObra()">Próximo</button>
+                </div>
+            </div>
+
+            <div id="mensagemFinal">
+            </div>
+
+        </div>
+
+        <div class="historicoLegenda">
+            <div id="historico">
+                <b>Histórico de respostas:</b>
+                <br>
+
+            </div>
+
+            <div id="legenda">
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    var valorObra = 0;
+
+    var qtdNegados = 0;
+    var btNegacaoTemp = 0;
+    var btNegacaoLumi = 0;
+    var btNegacaoUmi = 0;
+
+    var qtdAceitacoes = 0;
+    var btAceitacaoTemp = 0;
+    var btAceitacaoLumi = 0;
+    var btAceitacaoUmi = 0;
+
+    var tempRuim = 0;
+    var lumiRuim = 0;
+    var umiRuim = 0;
+
+    var tempBoa = 0;
+    var lumiBoa = 0;
+    var umiBoa = 0;
+
+    var condicoesBoas = 0;
+    var condicoesRuins = 0;
+
+    var condicoesRuinsTotais = 0;
+
+    var valorTemp;
+    var valorLumi;
+    var valorUmi;
+
+    var valorTempIdeal;
+    var valorLumiIdeal;
+
+    var valorUmiIdeal_1;
+    var valorUmiIdeal_2;
+
+    var valorRestauro = 0;
+
+    var tintaObra = '';
+    var tamanhoObra = '';
+
+    var valorAcrílica = 0;
+    var valorÓleo = 0;
+    var valorGuache = 0;
+
+    function mostrarTamanhoObra() {
+
+        tintaObra = input_tinta.value;
+
+        historico.innerHTML += `<br><b>Tinta da Obra:</b> ${tintaObra}<br>`
+
+        legenda.innerHTML = `<div style = "border-top: 2px solid #ADADAD">
+            <b>Tamanhos:</b><br>
+            <span>Pequena</span> - Aproximadamente de 50cm para baixo.<br>
+            <span>Média</span> - Aproximadamente de 80cm para baixo.<br>
+            <span>Grande</span> - Aproximadamente 1 metro para cima.
+            </div>`
+
+        formulario.innerHTML = `<div id="tamanhoObra">
+                <!--Perguntando qual o tamanho-->
+                Qual o tamanho da sua obra?<br>
+                <input id="input_tamanho" placeholder="Grande, Média, Pequena">
+                <br>
+                <button onclick="mostrarValorObra()">Ok</button>
+            </div>`;
+
+    }
+
+    function mostrarValorObra() {
+
+        tamanhoObra = input_tamanho.value;
+
+        historico.innerHTML += `<b><b>Tamanho da Obra:</b></b> ${tamanhoObra}<br>`;
+
+        legenda.innerHTML = ``;
+
+        formulario.innerHTML = `<div id="valorObra">
+                <!--Perguntando qual o valor-->
+                Qual o valor da sua obra?<br>
+                <div class="dinheiro">
+                R$ <input type="number" min="0" id="input_valorObra">
+                </div>
+                <br>
+                <button onclick="mostrarTemperatura()">Ok</button>
+            </div>`;
+
+    }
+
+    function mostrarTemperatura() {
+
+        valorObra = Number(input_valorObra.value);
+
+        historico.innerHTML += `<b>Valor da Obra:</b> R$${valorObra}<br>`;
+
+        formulario.innerHTML = `<div id="cuidadoTemperatura">
+                <!--Perguntando se toma cuidado com a temperatura-->
+                Você toma cuidado com a temperatura do ambiente em que estão as suas obras?
+                <br>
+                <div class="botoes">
+                    <button onclick="maisOpcoesTemperatura()">Sim</button>
+                    <button onclick="negacaoTemperatura()">Não</button>
+                </div>
+                <div id="mostrarMaisOpcoesSim_Temperatura">
+                    <!-- TEXTO NO INNER HTML JAVASCRIPT -->
+                </div>
+            </div>`
+
+    }
+
+    function mostrarLuminosidade() {
+
+        formulario.innerHTML = `<div id="cuidadoLuminosidade">
+                <!--Perguntando se toma cuidado com a luminosidade-->
+                Você toma cuidado com a luminosidade do ambiente em que estão as suas obras?<br>
+                <div class="botoes">
+                    <button onclick="maisOpcoesLuminosidade()">Sim</button>
+                    <button onclick="negacaoLuminosidade()">Não</button>    
+                </div>
+                <div id="mostrarMaisOpcoesSim_Luminosidade">
+                    <!-- TEXTO NO INNER HTML JAVASCRIPT -->
+                </div>
+            </div>`
+
+    }
+
+    function mostrarUmidade() {
+
+        formulario.innerHTML = `<div id="cuidadoUmidade">
+                <!--Perguntando se toma cuidado com a umidade-->
+                Você toma cuidado com a umidade do ambiente em que estão as suas obras?<br>
+                <div class="botoes">
+                <button onclick="maisOpcoesUmidade()">Sim</button>
+                <button onclick="negacaoUmidade()">Não</button>
+                </div>
+                <div id="mostrarMaisOpcoesSim_Umidade">
+                    <!-- TEXTO NO INNER HTML JAVASCRIPT -->
+                </div>
+            </div>`
+
+    }
+
+
+    // SE APERTAR BOTÃO "SIM" ------------------------
+
+    function maisOpcoesTemperatura() {
+        btAceitacaoTemp = 1;
+
+        formulario.innerHTML = `<div>
+            Quanto de temperatura normalmente está?<br>
+            <input type="number" id="input_temperatura" placeholder="Em graus celsius">
+            <br>
+            <button onclick="pegarValorPassarProProximo_Temp()">Ok</button>
+            </div>`
+
+    };
+
+    function pegarValorPassarProProximo_Temp() {
+
+        valorTemp = Number(input_temperatura.value);
+
+        historico.innerHTML += `<b>Temperatura:</b> ${valorTemp}°<br>`;
+
+        mostrarLuminosidade();
+    };
+
+    function maisOpcoesLuminosidade() {
+        btAceitacaoLumi = 1;
+
+        formulario.innerHTML = `<div id="qtdLuminosidade">
+        Quanto de luminosidade normalmente está?<br>
+        <input type="number" id="input_luminosidade" placeholder="Em lux">
+        <br>
+        <button onclick="pegarValorPassarProProximo_Lumi()">Ok</button>
+        </div>`;
+
+    };
+
+    function pegarValorPassarProProximo_Lumi() {
+
+        valorLumi = Number(input_luminosidade.value);
+
+        historico.innerHTML += `<b>Luminosidade:</b> ${valorLumi} lux<br>`;
+
+        mostrarUmidade();
+
+    };
+
+    function maisOpcoesUmidade() {
+        btAceitacaoUmi = 1;
+
+        formulario.innerHTML = `<div id="qtdUmidade">
+        Quanto de umidade normalmente está?<br>
+        <input type="number" id="input_umidade" placeholder="Em porcentagem">
+        <br>
+        <button onclick="pegarValorPassarProProximo_Umi()">Ok</button>
+        </div>`;
+
+    };
+
+    function pegarValorPassarProProximo_Umi() {
+
+        valorUmi = Number(input_umidade.value);
+
+        historico.innerHTML += `<b>Umidade:</b> ${valorUmi}%<br>`;
+
+        limparTudo_mostrarResultado();
+
+    };
+
+    // SE APERTAR BOTÃO "NÃO" ------------------------
+
+    function negacaoTemperatura() {
+        btNegacaoTemp = 1;
+
+        historico.innerHTML += `<b>Temperatura:</b> Não<br>`;
+
+        mostrarLuminosidade();
+
+    }
+
+    function negacaoLuminosidade() {
+        btNegacaoLumi = 1;
+
+        historico.innerHTML += `<b>Luminosidade:</b> Não<br>`;
+
+        mostrarUmidade();
+
+    }
+
+    function negacaoUmidade() {
+        btNegacaoUmi = 1;
+
+        historico.innerHTML += `<b>Umidade:</b> Não<br>`;
+
+        limparTudo_mostrarResultado();
+
+    }
+
+    function calcularPrecoRestauracao_Muito() {
+
+        if (tamanhoObra == 'Grande') {
+
+            valorRestauro = 40000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Média') {
+
+            valorRestauro = 30000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Pequena') {
+
+            valorRestauro = 20000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+    }
+
+    function calcularPrecoRestauracao_Mediamente() {
+
+        if (tamanhoObra == 'Grande') {
+
+            valorRestauro = 23000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Média') {
+
+            valorRestauro = 17000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Pequena') {
+
+            valorRestauro = 11000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+    }
+
+    function calcularPrecoRestauracao_Pouco() {
+
+        if (tamanhoObra == 'Grande') {
+
+            valorRestauro = 6000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Média') {
+
+            valorRestauro = 4000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+        if (tamanhoObra == 'Pequena') {
+
+            valorRestauro = 2000;
+
+            if (tintaObra == 'Acrílica') {
+
+                valorRestauro += valorAcrílica;
+
+            } if (tintaObra == 'Óleo') {
+
+                valorRestauro += valorÓleo;
+            }
+
+            if (tintaObra == 'Guache') {
+
+                valorRestauro += valorGuache;
+            }
+
+        }
+
+    }
+
+    // BOTÃO "OK" ------------------------
+
+    function limparTudo_mostrarResultado() {
+
+        valorAcrílica = 157.00;
+        valorÓleo = 190.90;
+        valorGuache = 150.12;
+
+        qtdNegados = btNegacaoLumi + btNegacaoTemp + btNegacaoUmi;
+        qtdAceitacoes = btAceitacaoLumi + btAceitacaoTemp + btAceitacaoUmi;
+
+        console.log(`NEGAÇÃO ${qtdNegados} ${btNegacaoTemp} ${btNegacaoLumi} ${btNegacaoUmi}`);
+        console.log(`ACEITAÇÃO ${qtdAceitacoes} ${btAceitacaoTemp} ${btAceitacaoLumi} ${btAceitacaoUmi}`);
+
+        formulario.innerHTML = ``
+
+        mensagemFinal.innerHTML = `
+
+<div id="condicoesQueEstaoBoas"></div>
+
+<div id="resultadoPrejuizo"></div>
+
+<div id="valorPrejuizo"></div>
+
+<div id="consequencias"></div>
+
+<div id="propaganda"></div>
+
+`;
+
+        if (tintaObra == 'Acrílica') {
+
+            valorTempIdeal = 21;
+            valorLumiIdeal = 50;
+
+            valorUmiIdeal_1 = 40;
+            valorUmiIdeal_2 = 60;
+
+        }
+
+        if (tintaObra == 'Óleo') {
+
+            valorTempIdeal = 24;
+            valorLumiIdeal = 200;
+
+            valorUmiIdeal_1 = 40;
+            valorUmiIdeal_2 = 45;
+
+        }
+
+        if (tintaObra == 'Guache') {
+
+            valorTempIdeal = 20;
+            valorLumiIdeal = 50;
+
+            valorUmiIdeal_1 = 45;
+            valorUmiIdeal_2 = 50;
+
+        }
+
+        // QUANDO ALGUM BOTÃO SIM FOR APERTADO!!!!!!!!!!!!!!
+
+        if (btAceitacaoTemp == 1) {
+
+            if (tintaObra == 'Acrílica') {
+
+                if (valorTemp > 21) {
+
+                    valorTemp += "°";
+                    tempRuim = 1;
+
+                    console.log("que horror de temp pra Acrílica D:");
+
+                }
+
+                if (valorTemp <= 21) {
+
+                    valorTemp += "°";
+                    condicoesBoas += 1;
+                    tempBoa = 1;
+
+                    console.log("que temp maravilhosa pra Acrílica :D");
+
+                }
+            }
+
+            if (tintaObra == 'Óleo') {
+
+                if (valorTemp > 24) {
+
+                    valorTemp += "°";
+                    tempRuim = 1;
+
+                    console.log("que horror de temp pra Óleo D:");
+
+                }
+
+                if (valorTemp <= 24) {
+
+                    valorTemp += "°";
+                    condicoesBoas += 1;
+                    tempBoa = 1;
+
+                    console.log("que temp maravilhosa pra Óleo :D");
+
+                }
+            }
+
+            if (tintaObra == 'Guache') {
+
+                if (valorTemp > 20) {
+
+                    valorTemp += "°";
+                    tempRuim = 1;
+
+                    console.log("que horror de temp pra Guache D:");
+
+                }
+
+                if (valorTemp <= 20) {
+
+                    valorTemp += "°";
+                    condicoesBoas += 1;
+                    tempBoa = 1;
+
+                    console.log("que temp maravilhosa pra Guache :D");
+
+                }
+            }
+
+        }
+
+        if (btAceitacaoLumi == 1) {
+
+            if (tintaObra == 'Acrílica') {
+
+                if (valorLumi > 50) {
+
+                    valorLumi += " lux";
+
+                    lumiRuim = 1;
+
+                    console.log("que horror de lumi pra Acrílica D:");
+
+                }
+
+                if (valorLumi <= 50) {
+
+                    valorLumi += " lux";
+
+                    condicoesBoas += 1;
+                    lumiBoa = 1;
+
+                    console.log("que lumi maravilhosa pra Acrílica :D");
+
+                }
+            }
+
+            if (tintaObra == 'Óleo') {
+
+                if (valorLumi > 200) {
+
+                    valorLumi += " lux";
+
+                    lumiRuim = 1;
+
+                    console.log("que horror de lumi pra Óleo D:");
+
+                }
+
+                if (valorLumi <= 200) {
+
+                    valorLumi += " lux";
+
+                    condicoesBoas += 1;
+                    lumiBoa = 1;
+
+                    console.log("que lumi maravilhosa pra Óleo :D");
+
+                }
+            }
+
+            if (tintaObra == 'Guache') {
+
+                if (valorLumi > 50) {
+
+                    valorLumi += " lux";
+
+                    lumiRuim = 1;
+
+                    console.log("que horror de lumi pra Guache D:");
+
+                }
+
+                if (valorLumi <= 50) {
+
+                    valorLumi += " lux";
+
+                    condicoesBoas += 1;
+                    lumiBoa = 1;
+
+                    console.log("que lumi maravilhosa pra Guache :D");
+
+                }
+            }
+
+        }
+
+        if (btAceitacaoUmi == 1) {
+
+            if (tintaObra == 'Acrílica') {
+
+                if (valorUmi < 40 | valorUmi > 60) {
+
+                    valorUmi += "%"
+
+                    umiRuim = 1;
+
+                    console.log("que horror de umi pra Acrílica D:");
+
+                }
+
+                if (valorUmi >= 40 && valorUmi <= 60) {
+
+                    valorUmi += "%"
+
+                    condicoesBoas += 1;
+                    umiBoa = 1;
+
+                    console.log("que umi maravilhosa pra Acrílica :D");
+
+                }
+
+            }
+
+            if (tintaObra == 'Óleo') {
+
+                if (valorUmi < 40 | valorUmi > 45) {
+
+                    valorUmi += "%"
+
+                    umiRuim = 1;
+
+                    console.log("que horror de umi pra Óleo D:");
+
+                }
+
+                if (valorUmi >= 40 && valorUmi <= 45) {
+
+                    valorUmi += "%"
+
+                    condicoesBoas += 1;
+                    umiBoa = 1;
+
+                    console.log("que umi maravilhosa pra Óleo :D");
+
+                }
+            }
+
+            if (tintaObra == 'Guache') {
+
+                if (valorUmi < 45 | valorUmi > 50) {
+
+                    valorUmi += "%"
+
+                    umiRuim = 1;
+
+                    console.log("que horror de umi pra Guache D:");
+
+                }
+
+                if (valorUmi >= 45 && valorUmi <= 50) {
+
+                    valorUmi += "%"
+
+                    condicoesBoas += 1;
+                    umiBoa = 1;
+
+                    console.log("que umi maravilhosa pra Guache :D");
+
+                }
+            }
+
+        }
+
+        condicoesRuins = tempRuim + lumiRuim + umiRuim;
+
+        condicoesRuinsTotais = condicoesRuins + qtdNegados;
+
+
+        // VERIFICAR VALOR PREJUIZO SE TIVER COM ALGUMA DAS CONDICOES RUINS!!!!!!!!!!!!!!!!!!!!!!!
+        if (condicoesRuinsTotais == 3) {
+
+            calcularPrecoRestauracao_Muito();
+
+        }
+
+        if (condicoesRuinsTotais == 2) {
+
+            calcularPrecoRestauracao_Mediamente();
+
+        }
+
+        if (condicoesRuinsTotais == 1) {
+
+            calcularPrecoRestauracao_Pouco();
+
+        }
+
+        mensagens();
+
+    }
+
+    function mensagens() {
+
+        var valorObraUmQuarto = valorObra / 4;
+        var valorObraNovo = valorObra - valorObraUmQuarto;
+
+        if (condicoesBoas > 0) {
+
+            condicoesQueEstaoBoas.innerHTML = `<b>Condições que estão boas para a sua obra:</b><br>`
+
+            if (tempBoa == 1) {
+
+                condicoesQueEstaoBoas.innerHTML += `• A temperatura está boa para a sua obra!<br>`;
+
+            }
+
+            if (lumiBoa == 1) {
+
+                condicoesQueEstaoBoas.innerHTML += `• A luminosidade está boa para a sua obra!<br>`;
+
+            }
+
+            if (umiBoa == 1) {
+
+                condicoesQueEstaoBoas.innerHTML += `• A umidade está boa para a sua obra!<br>`;
+
+            }
+
+            if (condicoesBoas == 3) {
+
+                propaganda.innerHTML = `Você está monitorando as condições do ambiente da sua obra muito bem! Mas que tal aumentar esse monitoramento? É muito importante ter certeza que você está protegendo bem as suas obras!
+<br><br>
+<center>Afinal, porque só ter isso quando você pode ter Infinity?</center>`;
+
+            }
+
+        }
+
+
+        if (condicoesRuinsTotais > 0) {
+            
+            if (btNegacaoTemp == 1) {valorTemp = 'Pois não está sendo avaliado'}
+            if (btNegacaoLumi == 1) {valorUmi = 'Pois não está sendo avaliado'}
+            if (btNegacaoUmi == 1) {valorLumi = 'Pois não está sendo avaliado'}
+
+            if (condicoesRuinsTotais == 3) {
+
+                consequencias.innerHTML = `<br><b>As condições que estão ruins são:</b><br>
+                • Temperatura: ${valorTemp} - Pode fazer com que a sua obra gere bolhas;<br>
+                • Luminosidade: ${valorLumi} - Pode fazer com que a tinta da sua obra fique amarelada;<br>
+                • Umidade: ${valorUmi} - Pode fazer com que gere bolor na sua obra.<br>`
+
+            }
+
+            if (condicoesRuinsTotais == 2) {
+
+                consequencias.innerHTML = `<br><b>Além disso, se você não aumentar o seu monitoramento, suas obras podem sofrer com:</b><br>`
+
+                if (btNegacaoTemp == 1 || tempRuim == 1) {
+
+                    consequencias.innerHTML += `• Problemas de temperatura, o que pode deixar a tinta com bolhas<br>`
+
+                }
+
+                if (btNegacaoLumi == 1 || lumiRuim == 1) {
+
+                    consequencias.innerHTML += `• Problemas de luminosidade, o que pode deixar a tinta amarelada<br>`
+
+                }
+
+                if (btNegacaoUmi == 1 || umiRuim == 1) {
+
+                    consequencias.innerHTML += `• Problemas de umidade, o que pode deixar a pintura com bolor<br>`
+
+                }
+
+            }
+
+            if (condicoesRuinsTotais == 1) {
+
+                consequencias.innerHTML = `<br>Além disso, suas obras podem sofrer com `
+
+                if (btNegacaoTemp == 1 || tempRuim == 1) {
+
+                    consequencias.innerHTML += `a falta de monitoramento da temperatura, que pode fazer com que apareçam bolhas na pintura de sua obra, estragando a pintura. `
+
+                }
+
+                if (btNegacaoLumi == 1 || lumiRuim == 1) {
+
+                    consequencias.innerHTML += `a falta de monitoramento da luminosidade, que pode fazer com que a tinta da obra fique amarelada, estragando sua qualidade. `
+
+                }
+
+                if (btNegacaoUmi == 1 || umiRuim == 1) {
+
+                    consequencias.innerHTML += `a falta de monitoramento da umidade, que pode fazer com que apareça bolor na tinta da obra, estragando sua qualidade. `
+
+                }
+
+            }
+
+            valorPrejuizo.innerHTML = `Sua obra pode estar ficando danificada! Você gastará cerca de R$${valorRestauro} em restauração se não tomar os cuidados adequados e sua obra pode perder até 1/4 (R$${valorObraUmQuarto}) de seu valor de mercado, ficando: R$${valorObraNovo}.`;
+
+            propaganda.innerHTML += `<br><br>Com a ajuda dos sensores de monitoramento da infinity art, você pode previnir esses danos!`
+
+
+
+        }
+
+        legenda.innerHTML = `<div style = "border-top: 2px solid #ADADAD">
+            <b>As condições ideias para o seu tipo de obra são:</b><br>
+            <span>Temperatura:</span> De ${valorTempIdeal}° à 18°;
+            <span>Luminosidade:</span> De ${valorLumiIdeal} lux para baixo;<br>
+            <span>Umidade:</span> De ${valorUmiIdeal_1}% à ${valorUmiIdeal_2}%.
+            </div>`;
+
+
+        qtdNegados = 0;
+        btNegacaoTemp = 0;
+        btNegacaoLumi = 0;
+        btNegacaoUmi = 0;
+
+    }
+
+</script>
+
+<!--
+
+        https://www.funcef.com.br/apl/simuladorfinanceiro/#:~:text=O%20Simulador%20Financeiro%20foi%20criado,para%20melhoramento%20da%20vida%20financeira.
+
+        http://gravuracontemporanea.com.br/o-custo-de-conservacao-e-restauracao/#:~:text=Ele%20diz%20que%20uma%20pequena,mil%20a%20R%24%2040%20mil.
+
+        https://canerstudio.com.br/restauro-de-obras-de-arte/#:~:text=O%20processo%20de%20restauração%20começa,e%20o%20restauro%20do%20chassis.
+
+        https://www.casadorestaurador.com.br/loja/produto/RESTAURO/restauracao-de-pintura-em-tela
+
+        https://artbusinessnews.com/2015/12/the-cost-of-conservation-and-restoration/#:~:text=As%20long%20as%20the%20damage,painting%20without%20decreasing%20its%20value.
+
+        https://www.sybariscollection.com/how-the-condition-of-artwork-impacts-its-financial-value/#:~:text=Artwork%20in%20your%20possession%20which,been%20completed%20on%20a%20work.
+
+        https://www.quora.com/Does-a-painting-lose-value-if-it-s-been-restored#:~:text=If%20needed%20and%20done%20professionally,the%20professionalism%20of%20the%20restoration.
+
+        https://www.360meridianos.com/especial/os-cientistas-das-artes
+        
+
+        
+        https://www.ateliedorestaurador.com/restauros?gad_source=1&gclid=EAIaIQobChMI973I59jdhAMVwFVIAB3x5w_SEAMYASAAEgKHNvD_BwE
+
+
+
+        https://www.calizarestaura.com.br/?gad_source=1&gclid=EAIaIQobChMI37i0meHdhAMVoGNIAB3pZQemEAAYASAAEgLFHfD_BwE
+
+
+
+        https://www.casadorestaurador.com.br/loja/Produtos?IdGrpProWeb=1043%20%20%20%20%20%20&Ordenar=order%20by%20%5BLo_Lancamento%5D%20DESC%2C%20%5BORDEM%5D%20ASC%2C%20%5BDescricao%5D%20ASC&menuFilho=1043%20%20%20%20%20%20
+
+    -->
